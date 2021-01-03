@@ -1,5 +1,5 @@
 ﻿
-namespace FSControls.Library
+namespace FSControls.Library.Controls
 {
     partial class FolderTree
     {
