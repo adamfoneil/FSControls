@@ -12,7 +12,7 @@ namespace Testing
         [TestMethod]
         public void OneDrive()
         {
-            var fs = new FolderSearch(null);
+            var fs = new DirectoryScanner();
             var result = fs.ExecuteAsync(@"c:\users\adamo\OneDrive").Result;
             Assert.IsTrue(result.Folders.All(dir => Directory.Exists(dir.Path)));
         }

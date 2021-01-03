@@ -43,13 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FolderSearch.cs" />
+    <Compile Include="DirectoryScanner.cs" />
     <Compile Include="FolderTree.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FolderTree.Designer.cs">
       <DependentUpon>FolderTree.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Folder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,8 +58,6 @@
       <DependentUpon>FolderTree.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

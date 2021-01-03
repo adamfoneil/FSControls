@@ -1,27 +1,18 @@
-﻿using System;
+﻿using FSControls.Library.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FSControls.Library
 {
-    public class FolderSearch
+    public class DirectoryScanner
     {
-        private readonly string _cachePath;
-
-        public FolderSearch(string cachePath)
+        public DirectoryScanner()
         {
-            _cachePath = cachePath;
         }
 
         public async Task<Folder> ExecuteAsync(string rootPath)
-        {
-            return await ExecuteAsync(rootPath, null);
-        }
-
-        public async Task<Folder> ExecuteAsync(string rootPath, string nameContains)
         {
             var result = new Folder()
             {
@@ -46,8 +37,7 @@ namespace FSControls.Library
                     var folder = new Folder()
                     {
                         Parent = parent,
-                        Name = name,
-                        IsSearchResult = !string.IsNullOrEmpty(nameContains) ? name.ToLower().Contains(nameContains.ToLower()) : false
+                        Name = name
                     };
 
                     folder.Folders = GetChildren(folder, dir);
@@ -68,34 +58,6 @@ namespace FSControls.Library
             catch 
             {
                 return Enumerable.Empty<string>();
-            }
-        }
-    }
-
-    public class Folder
-    {
-        public Folder Parent { get; set; }
-        public string Name { get; set; }
-        public IEnumerable<Folder> Folders { get; set; }
-        public bool IsSearchResult { get; set; }
-
-        public override string ToString() => Path;
-
-        public string Path
-        {
-            get
-            {
-                List<string> results = new List<string>();
-                                
-                var dir = this;
-                do
-                {
-                    results.Add(dir.Name);
-                    dir = dir.Parent;
-                } while (dir != null);
-
-                results.Reverse();
-                return string.Join("\\", results);
             }
         }
     }
