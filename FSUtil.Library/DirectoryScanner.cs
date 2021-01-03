@@ -1,16 +1,18 @@
-﻿using FSControls.Library.Models;
+﻿using FSUtil.Library.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FSControls.Library
+namespace FSUtil.Library
 {
     public class DirectoryScanner
     {
         public DirectoryScanner()
         {
         }
+
+        public HashSet<string> IgnoreNames { get; set; }
 
         public async Task<Folder> ExecuteAsync(string rootPath)
         {
@@ -34,6 +36,8 @@ namespace FSControls.Library
                 foreach (var dir in folders)
                 {
                     var name = dir.Split('\\').Last();
+                    if (IgnoreNames?.Contains(name) ?? false) continue;
+
                     var folder = new Folder()
                     {
                         Parent = parent,

@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSControls.Demo", "FSControls.Demo\FSControls.Demo.csproj", "{27FB8C73-4E02-40EF-A56A-21E45CA36D3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSControls.Library", "FSControls.Library\FSControls.Library.csproj", "{4D508B51-47FB-4581-9212-403C7075FE22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSUtil.Controls", "FSControls.Library\FSUtil.Controls.csproj", "{4D508B51-47FB-4581-9212-403C7075FE22}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{626D8A11-24B4-4195-A909-000709925541}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSUtil.Library", "FSUtil.Library\FSUtil.Library.csproj", "{06B3A158-C9C4-4ED5-AE07-7E2244ABA177}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{626D8A11-24B4-4195-A909-000709925541}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{626D8A11-24B4-4195-A909-000709925541}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{626D8A11-24B4-4195-A909-000709925541}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06B3A158-C9C4-4ED5-AE07-7E2244ABA177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06B3A158-C9C4-4ED5-AE07-7E2244ABA177}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06B3A158-C9C4-4ED5-AE07-7E2244ABA177}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06B3A158-C9C4-4ED5-AE07-7E2244ABA177}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

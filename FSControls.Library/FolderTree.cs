@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace FSControls.Library.Controls
+namespace FSUtil.Controls
 {
     public partial class FolderTree : UserControl
     {

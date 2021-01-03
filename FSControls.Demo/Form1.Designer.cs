@@ -1,5 +1,5 @@
 ﻿
-namespace FSControls
+namespace FSUtil
 {
     partial class Form1
     {
