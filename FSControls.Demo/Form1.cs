@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FSUtil
@@ -15,6 +9,26 @@ namespace FSUtil
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            folderTree1.IgnoreNames = new string[]
+            {
+                 ".git",
+                "bin",
+                "obj",
+                "Debug",
+                "Release",
+                ".vs",
+                "TestResults"
+            }.ToHashSet();
+
+            await folderTree1.FillAsync(new string[] 
+            {
+                @"c:\users\adamo\OneDrive",
+                @"c:\users\adamo\Source\Repos"
+            });
         }
     }
 }
