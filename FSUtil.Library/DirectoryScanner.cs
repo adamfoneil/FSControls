@@ -18,7 +18,8 @@ namespace FSUtil.Library
         {
             var result = new Folder()
             {
-                Name = rootPath
+                Name = rootPath,
+                Path = rootPath
             };
 
             await Task.Run(() =>
@@ -41,15 +42,30 @@ namespace FSUtil.Library
                     var folder = new Folder()
                     {
                         Parent = parent,
-                        Name = name
+                        Name = name,                        
                     };
 
+                    folder.Path = GetPath(folder);
                     folder.Folders = GetChildren(folder, dir);
 
                     results.Add(folder);
                 }
 
                 return results;                
+
+                string GetPath(Folder folder)
+                {
+                    List<string> names = new List<string>();
+                    
+                    do
+                    {
+                        names.Add(folder.Name);
+                        folder = folder.Parent;
+                    } while (folder != null);
+
+                    names.Reverse();
+                    return string.Join("\\", names);
+                }
             }
         }
 
