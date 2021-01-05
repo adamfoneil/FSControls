@@ -41,5 +41,20 @@ namespace Testing
             var json2 = JsonSerializer.Serialize(structure);
             Assert.IsTrue(json1.Equals(json2));
         }
+
+        [TestMethod]
+        public void ToFolderTest()
+        {
+            var items = new string[]
+            {
+                "this/that/other/hello.jpg",
+                "this/that/another/goodbye.jpg",
+                "this/willy/hello/thiska.docx",
+                "yambo/that/other/whenever.txt",
+                "yambo/yilma/hoopla/thalamus.json"
+            };
+
+            var folder = FolderExtensions.ToFolder(items, '/');
+        }
     }
 }

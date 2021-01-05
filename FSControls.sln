@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSUtil.Controls", "FSContro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{626D8A11-24B4-4195-A909-000709925541}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSUtil.Library", "FSUtil.Library\FSUtil.Library.csproj", "{06B3A158-C9C4-4ED5-AE07-7E2244ABA177}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FSUtil.Library", "FSUtil.Library\FSUtil.Library.csproj", "{06B3A158-C9C4-4ED5-AE07-7E2244ABA177}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
