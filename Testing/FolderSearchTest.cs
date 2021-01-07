@@ -47,14 +47,14 @@ namespace Testing
         {
             var items = new string[]
             {
-                "this/that/other/hello.jpg",
-                "this/that/another/goodbye.jpg",
-                "this/willy/hello/thiska.docx",
-                "yambo/that/other/whenever.txt",
-                "yambo/yilma/hoopla/thalamus.json"
+                "this/that/other",
+                "this/that/another",
+                "this/willy/hello",
+                "yambo/that/other",
+                "yambo/yilma/hoopla"
             };
 
-            var folder = FolderExtensions.ToFolder(items, '/');
+            var folders = FolderExtensions.ToFolder(items, '/');
         }
     }
 }

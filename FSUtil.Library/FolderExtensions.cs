@@ -45,7 +45,7 @@ namespace FSUtil.Library
                 .Select(grp => new Folder()
                 {
                     Name = grp.Key,
-                    Folders = GetSubfolders(grp, 1)
+                    //Folders = GetSubfolders(grp, 1)
                 });
 
             return results;
