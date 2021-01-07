@@ -55,6 +55,76 @@ namespace Testing
             };
 
             var folders = FolderExtensions.ToFolder(items, '/');
+
+            var expected = new Folder[] 
+            {
+                new Folder()
+                {
+                    Name = "this",
+                    Folders = new Folder[]
+                    {
+                        new Folder()
+                        {
+                            Name = "that",
+                            Folders = new Folder[]
+                            {
+                                new Folder()
+                                {
+                                    Name = "other"
+                                },
+                                new Folder()
+                                {
+                                    Name = "another"
+                                }                                
+                            }
+                        },
+                        new Folder()
+                        {
+                            Name = "willy",
+                            Folders = new Folder[]
+                            {
+                                new Folder()
+                                {
+                                    Name = "hello"
+                                }
+                            }
+                        }
+                    }
+                },
+                new Folder()
+                {
+                    Name = "yambo",
+                    Folders = new Folder[]
+                    {
+                        new Folder()
+                        {
+                            Name = "that",
+                            Folders = new Folder[]
+                            {
+                                new Folder()
+                                {
+                                    Name = "other"
+                                }
+                            }
+                        },
+                        new Folder()
+                        {
+                            Name = "yilma",
+                            Folders = new Folder[]
+                            {
+                                new Folder()
+                                {
+                                    Name = "hoopla"
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var srcJson = JsonSerializer.Serialize(folders);
+            var expectedJson = JsonSerializer.Serialize(expected);
+            Assert.IsTrue(srcJson.Equals(expectedJson));
         }
     }
 }

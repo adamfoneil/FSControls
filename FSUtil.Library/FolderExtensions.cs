@@ -40,12 +40,12 @@ namespace FSUtil.Library
             var pathFolders = paths.Select(path => path.Split(pathSeparator).ToArray());            
 
             var results = pathFolders
-                .Where(folders => folders.Length == 2)
+                .Where(folders => folders.Length >= 2)
                 .GroupBy(folders => folders[0])
                 .Select(grp => new Folder()
                 {
                     Name = grp.Key,
-                    //Folders = GetSubfolders(grp, 1)
+                    Folders = GetSubfolders(grp, 1)
                 });
 
             return results;
