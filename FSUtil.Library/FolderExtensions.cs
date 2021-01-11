@@ -37,7 +37,7 @@ namespace FSUtil.Library
 
         public static IEnumerable<Folder> ToFolder(IEnumerable<string> paths, char pathSeparator)
         {
-            var pathFolders = paths.Select(path => path.Split(pathSeparator).ToArray());            
+            var pathFolders = paths.Select(path => path.Split(pathSeparator).ToArray());
 
             var results = pathFolders
                 .Where(folders => folders.Length >= 2)
@@ -45,24 +45,24 @@ namespace FSUtil.Library
                 .Select(grp => new Folder()
                 {
                     Name = grp.Key,
-                    Folders = GetSubfolders(grp, 1)
+                    Folders = GetSubfolders(grp)
                 });
 
             return results;
 
-            IEnumerable<Folder> GetSubfolders(IEnumerable<string[]> subtreeFolders, int index)
+            IEnumerable<Folder> GetSubfolders(IEnumerable<string[]> subtreeFolders)
             {
-                var analyzeSubtree = subtreeFolders
-                    .Where(folders => folders.Length > index)
-                    .Select(folders => folders.Skip(1).ToArray());
+                var nextLevel = subtreeFolders
+                    .Select(folders => folders.Skip(1).ToArray())
+                    .Where(folders => folders.Length > 0)
+                    .ToArray();
 
-                var result = analyzeSubtree
-                    .Where(folders => folders.Length == index + 1)
-                    .GroupBy(folders => folders[index])
+                var result = nextLevel
+                    .GroupBy(folders => folders[0])
                     .Select(grp => new Folder()
                     {
                         Name = grp.Key,
-                        Folders = GetSubfolders(grp, index + 1)
+                        Folders = GetSubfolders(grp)
                     });
 
                 return result;
