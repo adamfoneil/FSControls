@@ -75,7 +75,7 @@ namespace Testing
                                 new Folder()
                                 {
                                     Name = "another"
-                                }                                
+                                }
                             }
                         },
                         new Folder()
