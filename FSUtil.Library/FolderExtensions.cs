@@ -85,6 +85,7 @@ namespace FSUtil.Library
                             Path = GetPath(parent, grp.Key)                            
                         };
 
+                        // if this is a "leaf" (the end of the recursion), then the Object goes here
                         if (grp.Count() == 1) child.Object = grp.First().Object;
 
                         child.Folders = GetSubfolders(child, grp);
