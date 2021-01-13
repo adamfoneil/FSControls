@@ -1,4 +1,5 @@
 ﻿using FSUtil.Library.Models;
+using FSUtil.Library.Models.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,11 +39,15 @@ namespace FSUtil.Library
 
         public static IEnumerable<Folder<T>> ToFolder<T>(IEnumerable<T> items, Func<T, string> pathAccessor, char pathSeparator)
         {
-            var pathFolders = items.Select(item => pathAccessor.Invoke(item).Split(pathSeparator).ToArray());
+            var pathFolders = items.Select(item => new FolderAnalyzer<T>()
+            {
+                Folders = pathAccessor.Invoke(item).Split(pathSeparator).ToArray(),
+                Object = item
+            });
 
             var results = pathFolders
-                .Where(folders => folders.Length >= 1)
-                .GroupBy(folders => folders[0])
+                .Where(folders => folders.Folders.Length >= 1)
+                .GroupBy(folders => folders.Folders[0])
                 .Select(grp =>
                 {
                     var result = new Folder<T>()
@@ -58,23 +63,29 @@ namespace FSUtil.Library
 
             return results;
 
-            IEnumerable<Folder<T>> GetSubfolders(Folder<T> parent, IEnumerable<string[]> subtreeFolders)
+            IEnumerable<Folder<T>> GetSubfolders(Folder<T> parent, IEnumerable<FolderAnalyzer<T>> subtreeFolders)
             {
                 var nextLevel = subtreeFolders
-                    .Select(folders => folders.Skip(1).ToArray())
-                    .Where(folders => folders.Length > 0)
+                    .Select(folders => new FolderAnalyzer<T>()
+                    {
+                        Folders = folders.Folders.Skip(1).ToArray(),
+                        Object = folders.Object
+                    })
+                    .Where(folders => folders.Folders.Length > 0)
                     .ToArray();
 
                 var result = nextLevel
-                    .GroupBy(folders => folders[0])
+                    .GroupBy(folders => folders.Folders[0])
                     .Select(grp =>
                     {
                         var child = new Folder<T>()
                         {
                             Parent = parent,
                             Name = grp.Key,
-                            Path = GetPath(parent, grp.Key)
+                            Path = GetPath(parent, grp.Key)                            
                         };
+
+                        if (grp.Count() == 1) child.Object = grp.First().Object;
 
                         child.Folders = GetSubfolders(child, grp);
                         return child;
