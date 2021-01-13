@@ -4,12 +4,13 @@ using System.Text.Json.Serialization;
 
 namespace FSUtil.Library.Models
 {
-    public class Folder
+    public class Folder<T>
     {
         [JsonIgnore]
-        public Folder Parent { get; set; }
+        public Folder<T> Parent { get; set; }
         public string Name { get; set; }
-        public IEnumerable<Folder> Folders { get; set; } = Enumerable.Empty<Folder>();
+        public T Object { get; set; }
+        public IEnumerable<Folder<T>> Folders { get; set; } = Enumerable.Empty<Folder<T>>();
         public string Path { get; set; }
         public override string ToString() => Path;
     }

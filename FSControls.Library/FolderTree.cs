@@ -11,7 +11,7 @@ namespace FSUtil.Controls
 {
     public partial class FolderTree : UserControl
     {
-        private List<Folder> _folders = new List<Folder>();
+        private List<LocalDirectory> _folders = new List<LocalDirectory>();
 
         public FolderTree()
         {
@@ -52,9 +52,9 @@ namespace FSUtil.Controls
             }
         }
 
-        private void LoadNodes(Library.Models.Folder tree, FolderNode parent)
+        private void LoadNodes(LocalDirectory tree, FolderNode parent)
         {
-            var node = new FolderNode(tree.Name);
+            var node = new FolderNode(tree);
 
             if (parent == null)
             {
@@ -65,7 +65,7 @@ namespace FSUtil.Controls
                 parent.Nodes.Add(node);
             }
 
-            foreach (var subdir in tree.Folders) LoadNodes(subdir, node);
+            foreach (var subdir in tree.Folders) LoadNodes(subdir as LocalDirectory, node);
         }
 
         private void tbSearch_TextChanged(object sender, EventArgs e)

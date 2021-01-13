@@ -14,7 +14,7 @@ namespace Testing
         public void OneDrive()
         {
             var fs = new DirectoryScanner();
-            var result = fs.ExecuteAsync(@"c:\users\adamo\OneDrive").Result;
+            var result = fs.ExecuteAsync(@"c:\users\adamo\OneDrive", loadFiles: false).Result;
             Assert.IsTrue(result.Folders.All(dir => Directory.Exists(dir.Path)));
         }
 
@@ -34,10 +34,10 @@ namespace Testing
                     "TestResults"
                 }.ToHashSet()
             };
-            var result = fs.ExecuteAsync(@"C:\Users\adamo\Source\Repos\Dapper.CX").Result;
+            var result = fs.ExecuteAsync(@"C:\Users\adamo\Source\Repos\Dapper.CX", loadFiles: false).Result;
             var json1 = JsonSerializer.Serialize(result);
 
-            var structure = JsonSerializer.Deserialize<Folder>(json1);
+            var structure = JsonSerializer.Deserialize<LocalDirectory>(json1);
             var json2 = JsonSerializer.Serialize(structure);
             Assert.IsTrue(json1.Equals(json2));
         }
@@ -54,67 +54,78 @@ namespace Testing
                 "yambo/yilma/hoopla"
             };
 
-            var folders = FolderExtensions.ToFolder(items, '/');
+            var folders = FolderExtensions.ToFolder(items, (item) => item, '/');
 
-            var expected = new Folder[] 
+            var expected = new LocalDirectory[] 
             {
-                new Folder()
+                new LocalDirectory()
                 {
                     Name = "this",
-                    Folders = new Folder[]
+                    Path = "this",
+                    Folders = new LocalDirectory[]
                     {
-                        new Folder()
+                        new LocalDirectory()
                         {
                             Name = "that",
-                            Folders = new Folder[]
+                            Path = "this/that",
+                            Folders = new LocalDirectory[]
                             {
-                                new Folder()
+                                new LocalDirectory()
                                 {
-                                    Name = "other"
+                                    Name = "other",
+                                    Path = "this/that/other"
                                 },
-                                new Folder()
+                                new LocalDirectory()
                                 {
-                                    Name = "another"
+                                    Name = "another",
+                                    Path = "this/that/another"
                                 }
                             }
                         },
-                        new Folder()
+                        new LocalDirectory()
                         {
                             Name = "willy",
-                            Folders = new Folder[]
+                            Path = "this/willy",
+                            Folders = new LocalDirectory[]
                             {
-                                new Folder()
+                                new LocalDirectory()
                                 {
-                                    Name = "hello"
+                                    Name = "hello",
+                                    Path = "this/willy/hello"
                                 }
                             }
                         }
                     }
                 },
-                new Folder()
+                new LocalDirectory()
                 {
                     Name = "yambo",
-                    Folders = new Folder[]
+                    Path = "yambo",
+                    Folders = new LocalDirectory[]
                     {
-                        new Folder()
+                        new LocalDirectory()
                         {
                             Name = "that",
-                            Folders = new Folder[]
+                            Path = "yambo/that",
+                            Folders = new LocalDirectory[]
                             {
-                                new Folder()
+                                new LocalDirectory()
                                 {
-                                    Name = "other"
+                                    Name = "other",
+                                    Path = "yambo/that/other"
                                 }
                             }
                         },
-                        new Folder()
+                        new LocalDirectory()
                         {
                             Name = "yilma",
-                            Folders = new Folder[]
+                            Path = "yambo/yilma",
+                            Folders = new LocalDirectory[]
                             {
-                                new Folder()
+                                new LocalDirectory()
                                 {
-                                    Name = "hoopla"
+                                    Name = "hoopla",
+                                    Path = "yambo/yilma/hoopla"
                                 }
                             }
                         }

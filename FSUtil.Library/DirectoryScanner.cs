@@ -14,9 +14,9 @@ namespace FSUtil.Library
 
         public HashSet<string> IgnoreNames { get; set; }
 
-        public async Task<Folder> ExecuteAsync(string rootPath)
+        public async Task<LocalDirectory> ExecuteAsync(string rootPath, bool loadFiles = true)
         {
-            var result = new Folder()
+            var result = new LocalDirectory()
             {
                 Name = rootPath,
                 Path = rootPath
@@ -29,39 +29,45 @@ namespace FSUtil.Library
 
             return result;
 
-            IEnumerable<Folder> GetChildren(Folder parent, string path)
+            IEnumerable<LocalDirectory> GetChildren(LocalDirectory parent, string path)
             {                
-                var folders = GetDirectories(path);
+                var localDirectories = GetDirectories(path);
 
-                List<Folder> results = new List<Folder>();
-                foreach (var dir in folders)
+                List<LocalDirectory> results = new List<LocalDirectory>();
+                foreach (var dir in localDirectories)
                 {
                     var name = dir.Split('\\').Last();
                     if (IgnoreNames?.Contains(name) ?? false) continue;
 
-                    var folder = new Folder()
+                    var localDirectory = new LocalDirectory()
                     {
                         Parent = parent,
                         Name = name,                        
                     };
 
-                    folder.Path = GetPath(folder);
-                    folder.Folders = GetChildren(folder, dir);
+                    localDirectory.Path = GetPath(localDirectory);
 
-                    results.Add(folder);
+                    if (loadFiles)
+                    {
+                        localDirectory.Object = Directory.GetFiles(path).Select(fileName => new FileInfo(fileName));
+                    }
+                    
+                    localDirectory.Folders = GetChildren(localDirectory, dir);
+
+                    results.Add(localDirectory);
                 }
 
                 return results;                
 
-                string GetPath(Folder folder)
+                string GetPath(LocalDirectory dir)
                 {
                     List<string> names = new List<string>();
                     
                     do
                     {
-                        names.Add(folder.Name);
-                        folder = folder.Parent;
-                    } while (folder != null);
+                        names.Add(dir.Name);
+                        dir = dir.Parent as LocalDirectory;
+                    } while (dir != null);
 
                     names.Reverse();
                     return string.Join("\\", names);
